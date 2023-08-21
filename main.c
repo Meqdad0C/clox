@@ -2,8 +2,9 @@
 #include "chunk.h"
 #include "debug.h"
 
-void test_OP_RETURN(Chunk* chunk);
-void test_OP_CONSTANT(Chunk* chunk);
+void test_OP_RETURN(Chunk *chunk);
+
+void test_OP_CONSTANT(Chunk *chunk);
 
 int main() {
     Chunk chunk;
@@ -11,11 +12,13 @@ int main() {
 
     int constant = addConstant(&chunk, 1.2); // Offset in the Constant Pool
     writeChunk(&chunk, OP_CONSTANT, 123);
-    writeChunk(&chunk, constant,123);
+    writeChunk(&chunk, constant, 123);
 
-    writeChunk(&chunk, OP_RETURN,123);
+    writeChunk(&chunk, OP_RETURN, 123);
 
+    printLines(&chunk.lines);
     disassembleChunk(&chunk, "test chunk");
+
     freeChunk(&chunk);
     return 0;
 }

@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "value.h"
+#include "lines.h"
 
 typedef enum {
     OP_CONSTANT,
@@ -13,14 +14,15 @@ typedef struct {
     int capacity;
     int count;
     uint8_t *code;
-    int* lines;
+    Lines lines;
     ValueArray constants;
 
 } Chunk;
 
+
 void initChunk(Chunk *chunk);
 void freeChunk(Chunk *chunk);
-void writeChunk(Chunk *chunk, uint8_t byte,int line);
-int addConstant(Chunk* chunk, Value value);
+void writeChunk(Chunk *chunk, uint8_t byte, int line);
+int addConstant(Chunk *chunk, Value value);
 
 #endif //CLOX_CHUNK_H
