@@ -4,12 +4,13 @@
 #include "chunk.h"
 #include "value.h"
 
-#define STACK_MAX 16777216 // 2^24
+#define STACK_INITIAL_SIZE 256 // 2^24
 
 typedef struct {
     Chunk *chunk;
     uint8_t* ip;
-    Value stack[STACK_MAX];
+    int size;
+    Value* stack;
     Value* stackTop;
 } VM;
 
