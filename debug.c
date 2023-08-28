@@ -4,12 +4,25 @@
 #include "value.h"
 #include "lines.h"
 
+void printLines(LinesArray *lines) {
+    printf("RLE: ");
+    for (int i = 0; i < lines->current + 1; i += 2) {
+        printf("%d", lines->RLE[i]);
+        printf("#");
+        printf("%d", lines->RLE[i + 1]);
+        printf("$");
+    }
+    printf("\n");
+}
+
 void disassembleChunk(Chunk *chunk, const char *name) {
+    printLines(&chunk->lines);
     printf("== %s ==\n", name);
 
     for (int offset = 0; offset < chunk->count;) {
         offset = disassembleInstruction(chunk, offset);
     }
+
 }
 
 static int constantInstruction(const char *name, Chunk *chunk, int offset) {
@@ -70,13 +83,3 @@ int disassembleInstruction(Chunk *chunk, int offset) {
     }
 }
 
-void printLines(Lines *lines) {
-    printf("RLE: ");
-    for (int i = 0; i < lines->current + 1; i += 2) {
-        printf("%d", lines->RLE[i]);
-        printf("#");
-        printf("%d", lines->RLE[i + 1]);
-        printf("$");
-    }
-    printf("\n");
-}

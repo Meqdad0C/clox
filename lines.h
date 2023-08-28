@@ -12,11 +12,11 @@ typedef struct {
     int capacity;
     int current;
     int *RLE;
-} Lines;
+} LinesArray;
 
-void initLines(Lines *line);
-void writeLine(Lines *lines, int line);
-int getLine(Lines *lines, int offset);
-void freeLines(Lines* lines);
+void initLinesArray(LinesArray *lines);
+void writeLine(LinesArray *lines, int line);
+int getLine(LinesArray *lines, int offset);
+void freeLines(LinesArray* lines);
 
 #endif //CLOX_LINES_H

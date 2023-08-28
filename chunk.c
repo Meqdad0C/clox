@@ -8,7 +8,7 @@ void initChunk(Chunk *chunk) {
     chunk->count = 0;
     chunk->code = NULL;
     initValueArray(&chunk->constants);
-    initLines(&chunk->lines);
+    initLinesArray(&chunk->lines);
 }
 
 void writeChunk(Chunk *chunk, uint8_t byte, int line) {

@@ -6,6 +6,6 @@
 
 void disassembleChunk(Chunk* chunk, const char* name);
 int disassembleInstruction(Chunk* chunk, int offset);
-void printLines(Lines* lines);
+void printLines(LinesArray* lines);
 
 #endif //CLOX_DEBUG_H

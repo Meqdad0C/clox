@@ -7,13 +7,13 @@
 #include "memory.h"
 #include "lines.h"
 
-void initLines(Lines *lines) {
+void initLinesArray(LinesArray *lines) {
     lines->capacity = 0;
     lines->current = -2;
     lines->RLE = NULL;
 }
 
-void writeLine(Lines *lines, int line) {
+void writeLine(LinesArray *lines, int line) {
     if (lines->capacity < lines->current + 1 + 2) {
         int oldCapacity = lines->capacity;
         lines->capacity = GROW_CAPACITY(oldCapacity);
@@ -31,7 +31,7 @@ void writeLine(Lines *lines, int line) {
     lines->RLE[lines->current] += 1;
 }
 
-int getLine(Lines *lines, int offset) {
+int getLine(LinesArray *lines, int offset) {
     int index = 0;
     while (offset >= lines->RLE[index]) {
         offset -= lines->RLE[index];
@@ -40,7 +40,7 @@ int getLine(Lines *lines, int offset) {
     return lines->RLE[++index];
 }
 
-void freeLines(Lines *lines) {
+void freeLines(LinesArray *lines) {
     FREE_ARRAY(int, lines->RLE, lines->capacity);
-    initLines(lines);
+    initLinesArray(lines);
 }
