@@ -23,8 +23,7 @@ void writeChunk(Chunk *chunk, uint8_t byte, int line) {
     chunk->count++;
 }
 
-void writeConstant(Chunk *chunk, Value value, int line) {
-    int index = addConstant(chunk, value);
+void writeConstant(Chunk *chunk, int index, int line) {
     if (index <= 0xFF) {
         writeChunk(chunk, OP_CONSTANT, line);
         writeChunk(chunk, index, line);
