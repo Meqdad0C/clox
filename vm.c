@@ -40,7 +40,13 @@ Value pop() {
 static InterpretResult run() {
 #define READ_BYTE() (*vm.ip++)
 #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
-#define READ_CONSTANT_LONG() (vm.chunk->constants.values[READ_BYTE() | (READ_BYTE() << 8) | (READ_BYTE() << 16)])
+#define READ_CONSTANT_LONG(Value) \
+    do { \
+        int valueIndex = READ_BYTE(); \
+        valueIndex = valueIndex | (READ_BYTE() << 8); \
+        valueIndex = valueIndex | (READ_BYTE() << 16); \
+        Value = vm.chunk->constants.values[valueIndex]; \
+        } while(false)
 #define BINARY_OP(op) \
     do { \
       double b = pop(); \
@@ -67,7 +73,8 @@ static InterpretResult run() {
                 break;
             }
             case OP_CONSTANT_LONG: {
-                Value constant = READ_CONSTANT_LONG();
+                Value constant;
+                READ_CONSTANT_LONG(constant);
                 push(constant);
                 break;
             }
